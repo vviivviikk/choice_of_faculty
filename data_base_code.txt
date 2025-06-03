@@ -1,0 +1,25 @@
+CREATE TABLE faculties (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    required_subjects TEXT[] NOT NULL,
+    optional_subjects TEXT[]
+);
+
+CREATE TABLE recommendations (
+    id SERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    recommended_faculty_id INT REFERENCES faculties(id),
+    favorite_subjects TEXT[],
+    disliked_subjects TEXT[],
+    passed_exams TEXT[],
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+INSERT INTO faculties (name, required_subjects, optional_subjects) VALUES
+('Факультет информатики и вычислительной техники', ARRAY['информатика', 'математика'], ARRAY['физика']),
+('Факультет филологии', ARRAY['русский язык', 'литература'], ARRAY['иностранный язык']),
+('Факультет биологии', ARRAY['биология', 'химия'], ARRAY['математика']),
+('Экономический факультет', ARRAY['математика', 'обществознание'], ARRAY['история']),
+('Факультет иностранных языков', ARRAY['иностранный язык', 'литература'], ARRAY['русский язык']);
